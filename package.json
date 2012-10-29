@@ -1,6 +1,6 @@
 {
   "name": "panxapi",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A node.js API client for Palo Alto Networks firewalls",
   "main": "./lib/panxapi.js",
   "repository": {
