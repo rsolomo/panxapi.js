@@ -12,7 +12,7 @@ var username = 'admin'
 var password = 'admin'
 
 
-var panxapi = require('panxapi')
+var panxapi = require('../../lib/panxapi')
 var assert = require('assert')
 var client = new panxapi.Client()
 var completed = {
