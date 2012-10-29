@@ -3,23 +3,27 @@
   "version": "0.0.0",
   "description": "A node.js API client for Palo Alto Networks firewalls",
   "main": "./lib/panxapi.js",
-  "repository": "",
+  "repository": {
+  	"type": "git",
+  	"url": "https://github.com/rsolomo/panxapi.js.git"
+  },
   "keywords": [
     "firewall",
     "palo alto"
   ],
-  "author": "Ray Solomon",
-  "license": "BSD",
+  "scripts": {
+  	"test": "make test"
+  },
+  "author": "Ray Solomon <raybsolomon@gmail.com>",
+  "license": "MIT",
   "dependencies": {
-    "commander": "~1.0.4",
-    "request": "~2.11.4",
+    "request": ">= 2.11.x",
     "libxmljs": "~0.6.1"
   },
   "devDependencies" : {
-    "mocha" : "~1.6.0"
+    "mocha" : "*"
   },
   "engines" : {
     "node": ">= 0.8.x"
-  },
-  "private" : true
+  }
 }
