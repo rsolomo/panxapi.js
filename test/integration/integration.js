@@ -11,7 +11,6 @@ var hostname = '127.0.0.1'
 var username = 'admin'
 var password = 'admin'
 
-
 var panxapi = require('../../lib/panxapi')
 var assert = require('assert')
 var client = new panxapi.Client()
@@ -38,13 +37,15 @@ describe('panxapi', function() {
   })
   describe('#show()', function() {
     before(function(done) {
-      while (!client.key);
+      while (!client.key) {
+      }
       done()
     })
     it('should return callback(null, xml) on success', function(done) {
       var callback = function(err, xml) {
-        if (err)
+        if (err) {
           throw err
+        }
         assert.equal(err, null)
         assert.ok(xml)
         console.log('\n' + xml)
@@ -57,7 +58,8 @@ describe('panxapi', function() {
   })
   describe('#get()', function() {
     before(function(done) {
-      while (!client.key);
+      while (!client.key) {
+      }
       done()
     })
     it('should return callback(null, xml) on success', function(done) {
@@ -74,14 +76,16 @@ describe('panxapi', function() {
   })
   describe('#set()', function() {
     before(function(done) {
-      while (!client.key);
+      while (!client.key) {
+      }
       completed.set = true
       done()
     })
     it('should return callback(null, xml) on success', function(done) {
       var callback = function(err, xml) {
-        if (err)
+        if (err) {
           throw err
+        }
         assert.equal(err, null)
         assert.ok(xml)
         console.log('\n' + xml)
@@ -95,14 +99,17 @@ describe('panxapi', function() {
   })
   describe('#edit()', function() {
     before(function(done) {
-      while (!client.key);
-      while (!completed.set);
+      while (!client.key) {
+      }
+      while (!completed.set) {
+      }
       done()
     })
     it('should return callback(null, xml) on success', function(done) {
       var callback = function(err, xml) {
-        if (err)
+        if (err) {
           throw err
+        }
         assert.equal(err, null)
         assert.ok(xml)
         console.log('\n' + xml)
@@ -116,13 +123,15 @@ describe('panxapi', function() {
   })
   describe('#op()', function() {
     before(function(done) {
-      while (!client.key);
+      while (!client.key) {
+      }
       done()
     })
     it('should return callback(null, xml) on success', function(done) {
       var callback = function(err, xml) {
-        if (err)
+        if (err) {
           throw err
+        }
         assert.equal(err, null)
         assert.ok(xml)
         console.log('\n' + xml)
@@ -135,13 +144,15 @@ describe('panxapi', function() {
   })
   describe('#commit()', function() {
     before(function(done) {
-      while (!client.key);
+      while (!client.key) {
+      }
       done()
     })
     it('should return callback(null, xml) on success', function(done) {
       var callback = function(err, xml) {
-        if (err)
+        if (err) {
           throw err
+        }
         assert.equal(err, null)
         assert.ok(xml)
         console.log('\n' + xml)
