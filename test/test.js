@@ -1,5 +1,4 @@
 var panxapi = require('../lib/panxapi')
-var libxmljs = require('libxmljs')
 var assert = require('assert')
 var client
 
