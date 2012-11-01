@@ -118,7 +118,7 @@ function show(err, xml) {
   console.log(xml)
   console.log('\n#show response:')
   client.show({
-    xpath : "/config/devices/entry/deviceconfig/system/hostname"
+    xpath : '/config/devices/entry/deviceconfig/system/hostname'
   }, done)
 }
 

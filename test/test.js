@@ -1,5 +1,6 @@
 var panxapi = require('../lib/panxapi')
 var assert = require('assert')
+var panxapiTest = "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test']"
 var client
 
 describe('panxapi', function() {
@@ -134,9 +135,10 @@ describe('panxapi', function() {
     })
   })
   describe('#config()', function() {
+    var xpath = '/config/devices/entry/deviceconfig/system/hostname'
     it('should return callback(null, xml) on success', function(done) {
       var request = function(url, callback) {
-        var body = '<response status="success"><result><entry>dummyentry</entry></result></response>'
+        var body = '<response status="success"><result><hostname>lab</hostname></result></response>'
         var err = null
         var response = {
           statusCode : 200
@@ -150,7 +152,7 @@ describe('panxapi', function() {
       }
       client.config({
         action : 'show',
-        xpath : '/config',
+        xpath : xpath,
         request : request
       }, callback)
     })
@@ -166,7 +168,7 @@ describe('panxapi', function() {
       }
       client.config({
         action : 'show',
-        xpath : '/config',
+        xpath : xpath,
         request : request
       }, callback)
     })
@@ -184,6 +186,7 @@ describe('panxapi', function() {
       }
       client.config({
         action : 'show',
+        xpath : xpath,
         request : request
       }, callback)
     })
@@ -204,7 +207,7 @@ describe('panxapi', function() {
       }
       client.config({
         action : 'show',
-        xpath : '/config',
+        xpath : xpath,
         request : request
       }, callback)
     })
@@ -231,7 +234,7 @@ describe('panxapi', function() {
     it('should throw an exception if xpath is not present', function() {
       assert.throws(function() {
         client.set({
-          element : '<ip-netmask>1.1.1.1</ip-netmask>'
+          element : '<ip-netmask>192.0.2.1</ip-netmask>'
         }, function() {
         })
       }, /xpath/)
@@ -239,7 +242,7 @@ describe('panxapi', function() {
     it('should throw an exception if element is not present', function() {
       assert.throws(function() {
         client.set({
-          xpath : '/config/devices/entry[@name=\'localhost.localdomain\']/vsys/entry[@name=\'vsys1\']/address/entry[@name=\'test\']'
+          xpath : panxapiTest
         }, function() {
         })
       }, /element/)
@@ -249,7 +252,7 @@ describe('panxapi', function() {
     it('should throw an exception if xpath is not present', function() {
       assert.throws(function() {
         client.edit({
-          element : '<entry name="test"><ip-netmask>1.1.1.1</ip-netmask></entry>'
+          element : '<entry name="panxapi.js_test"><ip-netmask>192.0.2.1</ip-netmask></entry>'
         }, function() {
         })
       }, /xpath/)
@@ -257,7 +260,7 @@ describe('panxapi', function() {
     it('should throw an exception if element is not present', function() {
       assert.throws(function() {
         client.edit({
-          xpath : '/config/devices/entry[@name=\'localhost.localdomain\']/vsys/entry[@name=\'vsys1\']/address/entry[@name=\'test\']'
+          xpath : panxapiTest
         }, function() {
         })
       }, /element/)
@@ -276,14 +279,14 @@ describe('panxapi', function() {
     it('should throw an exception if xpath is not present', function() {
       assert.throws(function() {
         client.rename({
-        }, function() { newname :'new_test'
+        }, function() { newname :'panxapi.js_test_new'
         })
       }, /xpath/)
     })
     it('should throw an exception if newname is not present', function() {
       assert.throws(function() {
         client.rename({
-          xpath : '/config/devices/entry[@name=\'localhost.localdomain\']/vsys/entry[@name=\'vsys1\']/address/entry[@name=\'test\']'
+          xpath : panxapiTest
         }, function() {
         })
       }, /newname/)
@@ -293,7 +296,7 @@ describe('panxapi', function() {
     it('should throw an exception if xpath is not present', function() {
       assert.throws(function() {
         client.clone({
-          newname : 'new_test'
+          newname : 'panxapi.js_test_clone'
         }, function() {
         })
       }, /xpath/)
@@ -301,7 +304,7 @@ describe('panxapi', function() {
     it('should throw an exception if newname is not present', function() {
       assert.throws(function() {
         client.clone({
-          xpath : '/config/devices/entry[@name=\'localhost.localdomain\']/vsys/entry[@name=\'vsys1\']/address/entry[@name=\'test\']'
+          xpath : panxapiTest
         }, function() {
         })
       }, /newname/)
@@ -312,7 +315,7 @@ describe('panxapi', function() {
       assert.throws(function() {
         client.move({
           where : 'after',
-          dst : 'rule2'
+          dst : 'panxapi.js_test_clone'
         }, function() {
         })
       }, /xpath/)
@@ -320,7 +323,7 @@ describe('panxapi', function() {
     it('should throw an exception if where is not present', function() {
       assert.throws(function() {
         client.move({
-          xpath : '/config/devices/entry[@name=\'localhost.localdomain\']/vsys/entry[@name=\'vsys1\']/rulebase/security/rules/entry[@name=\'rule1\']',
+          xpath : panxapiTest,
           dst : 'rule2'
         }, function() {
         })
@@ -329,7 +332,7 @@ describe('panxapi', function() {
     it('should throw an exception if dst is not present', function() {
       assert.throws(function() {
         client.move({
-          xpath : '/config/devices/entry[@name=\'localhost.localdomain\']/vsys/entry[@name=\'vsys1\']/rulebase/security/rules/entry[@name=\'rule1\']',
+          xpath : panxapiTest,
           where : 'after'
         }, function() {
         })
@@ -417,6 +420,7 @@ describe('panxapi', function() {
     })
   })
   describe('#op()', function() {
+  var cmd = '<show><jobs><pending></pending></jobs></show>'
     it('should throw an exception if cmd is not present', function() {
       assert.throws(function() {
         client.op({
@@ -426,7 +430,7 @@ describe('panxapi', function() {
     })
     it('should return callback(null, xml) on success', function(done) {
       var request = function(url, callback) {
-        var body = '<response status="success" code="19"><result><msg><line>Commit job enqueued with jobid 1</line></msg><job>5</job></result></response>'
+        var body = '<response status="success"><result></result></response>'
         var err = null
         var response = {
           statusCode : 200
@@ -439,7 +443,7 @@ describe('panxapi', function() {
         done()
       }
       client.op({
-        cmd : '<show><system><info></info></system></show>',
+        cmd : cmd,
         request : request
       }, callback)
     })
@@ -454,7 +458,7 @@ describe('panxapi', function() {
         return callback(err, response, body)
       }
       client.op({
-        cmd : '<show><system><info></info></system></show>',
+        cmd : cmd,
         request : request
       }, callback)
     })
@@ -471,7 +475,7 @@ describe('panxapi', function() {
         return callback(err, response, body)
       }
       client.op({
-        cmd : '<show><system><info></info></system></show>',
+        cmd : cmd,
         request : request
       }, callback)
     })
@@ -491,7 +495,7 @@ describe('panxapi', function() {
         done()
       }
       client.op({
-        cmd : '<show><system><info></info></system></show>',
+        cmd : cmd,
         request : request
       }, callback)
     })
