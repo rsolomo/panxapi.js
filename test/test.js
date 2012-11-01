@@ -296,7 +296,8 @@ describe('panxapi', function() {
     it('should throw an exception if xpath is not present', function() {
       assert.throws(function() {
         client.clone({
-          newname : 'panxapi.js_test_clone'
+          newname : 'panxapi.js_test_clone',
+          from : panxapiTest
         }, function() {
         })
       }, /xpath/)
@@ -304,10 +305,19 @@ describe('panxapi', function() {
     it('should throw an exception if newname is not present', function() {
       assert.throws(function() {
         client.clone({
-          xpath : panxapiTest
+          xpath : "/config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/address",
+          from : panxapiTest,
         }, function() {
         })
       }, /newname/)
+    })
+    it('should throw an exception if from is not present', function() {
+      assert.throws(function() {
+        client.clone({
+          xpath : panxapiTest,
+          newname : 'panxapi.js_test_clone'
+        })
+      })
     })
   })
   describe('#move()', function() {
@@ -420,7 +430,7 @@ describe('panxapi', function() {
     })
   })
   describe('#op()', function() {
-  var cmd = '<show><jobs><pending></pending></jobs></show>'
+    var cmd = '<show><jobs><pending></pending></jobs></show>'
     it('should throw an exception if cmd is not present', function() {
       assert.throws(function() {
         client.op({
