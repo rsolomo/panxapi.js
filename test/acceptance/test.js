@@ -16,7 +16,6 @@ var password = 'admin'
 var assert = require('assert')
 var panxapi = require('../../lib/panxapi')
 var panxapiTest = "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test']"
-var panxapiTestClone = "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test_clone']"
 var client = new panxapi.Client()
 
 start()
@@ -57,6 +56,16 @@ function clone(err, xml) {
     xpath : "/config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/address",
     from : panxapiTest,
     newname : 'panxapi.js_test_clone'
+  }, rename)
+}
+
+function rename(err, xml) {
+  assert.ifError(err)
+  console.log(xml)
+  console.log('\#rename response:')
+  client.rename({
+    xpath : "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test_clone']",
+    newname : 'panxapi.js_test_rename'
   }, get)
 }
 
@@ -87,7 +96,7 @@ function move(err, xml) {
   client.move({
     xpath : panxapiTest,
     where : 'after',
-    dst : 'panxapi.js_test_clone'
+    dst : 'panxapi.js_test_rename'
   }, del)
 }
 
@@ -99,7 +108,7 @@ function del(err, xml) {
     xpath : panxapiTest
   }, function() {
     client.del({
-      xpath : panxapiTestClone
+      xpath : "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test_rename']"
     }, commit)
   })
 }
