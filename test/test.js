@@ -147,7 +147,7 @@ describe('panxapi', function() {
       }
       var callback = function(err, xml) {
         assert.equal(err, null)
-        assert.equal( typeof xml, 'string')
+        assert.equal(typeof xml, 'string')
         done()
       }
       client.config({
@@ -368,7 +368,7 @@ describe('panxapi', function() {
       }
       var callback = function(err, xml) {
         assert.equal(err, null)
-        assert.equal( typeof xml, 'string')
+        assert.equal(typeof xml, 'string')
         done()
       }
       client.commit({
@@ -449,7 +449,7 @@ describe('panxapi', function() {
       }
       var callback = function(err, xml) {
         assert.equal(err, null)
-        assert.equal( typeof xml, 'string')
+        assert.equal(typeof xml, 'string')
         done()
       }
       client.op({
