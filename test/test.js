@@ -134,7 +134,7 @@ describe('panxapi', function() {
       }, callback)
     })
   })
-  describe('#config()', function() {
+  describe('#createUrl()', function() {
     var xpath = '/config/devices/entry/deviceconfig/system/hostname'
     it('should return callback(null, xml) on success', function(done) {
       var request = function(url, callback) {
@@ -150,7 +150,7 @@ describe('panxapi', function() {
         assert.equal(typeof xml, 'string')
         done()
       }
-      client.config({
+      client.createUrl({
         action : 'show',
         xpath : xpath,
         request : request
@@ -166,7 +166,7 @@ describe('panxapi', function() {
         var response, body = null
         return callback(err, response, body)
       }
-      client.config({
+      client.createUrl({
         action : 'show',
         xpath : xpath,
         request : request
@@ -184,7 +184,7 @@ describe('panxapi', function() {
         var err, body = null
         return callback(err, response, body)
       }
-      client.config({
+      client.createUrl({
         action : 'show',
         xpath : xpath,
         request : request
@@ -205,7 +205,7 @@ describe('panxapi', function() {
         }, /Unauthorized request/)
         done()
       }
-      client.config({
+      client.createUrl({
         action : 'show',
         xpath : xpath,
         request : request
