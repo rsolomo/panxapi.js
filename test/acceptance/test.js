@@ -1,26 +1,51 @@
 /*
- * This suite attempts to apply several of the API client's methods to a live
- * firewall. A panxapijs_test address object will be created and manipulated.
- * Using a lab/development firewall for testing is highly recommended.
+ * This test suite attempts to apply several of the API client's methods to a
+ * live firewall. Multiple panxapijs_test* address objects will be created
+ * and manipulated. A commit will be executed during the test. Using a
+ * lab/development firewall for testing is highly recommended.
  */
-
-/*
- * The hostname, username, and password variables below should be changed.
- * Further modifications to this suite may be neccessary depending on your
- * environment.
- */
-var hostname = '127.0.0.1'
-var username = 'admin'
-var password = 'admin'
 
 var assert = require('assert')
+var program = require('commander')
 var panxapi = require('../../lib/panxapi')
 var panxapiTest = "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test']"
 var client = new panxapi.Client()
+var hostname, username, password
 
-start()
+init()
 
-function start() {
+function init() {
+  console.log('\n'
+    + 'This test suite attempts to apply several of the API client\'s methods to a\n'
+    + 'live firewall. Multiple panxapijs_test* address objects will be created\n'
+    + 'and manipulated. A commit will be executed during the test. Using a\n'
+    + 'lab/development firewall for testing is highly recommended.\n')
+  getHost()
+}
+
+function getHost() {
+  program.prompt('Hostname: ', function(input) {
+    hostname = input
+    getUser()
+  })
+}
+
+function getUser() {
+  program.prompt('Username: ', function(input) {
+    username = input
+    getPass()
+  })
+}
+
+function getPass() {
+  program.password('Password: ', function(input) {
+    password = input
+    process.stdin.destroy()
+    keygen()
+  })
+}
+
+function keygen() {
   console.log('#keygen response:')
   client.keygen({
     hostname : hostname,
