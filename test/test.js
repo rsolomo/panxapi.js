@@ -5,9 +5,16 @@ var client
 
 describe('panxapi', function() {
   beforeEach(function() {
-    client = new panxapi.Client()
+    client = panxapi.createClient()
     client.hostname = 'fakeHostname'
     client.key = 'fakeKey'
+  })
+  describe('#createClient', function() {
+    it('should return a new Client', function() {
+      var client1 = panxapi.createClient()
+      var client2 = panxapi.createClient()
+      assert.notStrictEqual(client1, client2)
+    })
   })
   describe('#keygen()', function() {
     var requestSuccess = function(url, callback) {
@@ -39,7 +46,7 @@ describe('panxapi', function() {
       }, /options\.password/)
     })
     it('should throw an exception if the hostname is not defined', function() {
-      var client = new panxapi.Client();
+      var client = panxapi.createClient();
       assert.throws(function() {
         client.keygen({
           username : 'dummyUsername',
