@@ -9,7 +9,7 @@ var assert = require('assert')
 var program = require('commander')
 var panxapi = require('../../lib/panxapi')
 var panxapiTest = "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test']"
-var client = new panxapi.Client()
+var client = panxapi.createClient()
 var hostname, username, password
 
 init()
