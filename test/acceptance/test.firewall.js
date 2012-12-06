@@ -55,7 +55,7 @@ function keygen() {
 }
 
 function op(err, key) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(key)
   console.log('\n#op response:')
   client.op({
@@ -64,7 +64,7 @@ function op(err, key) {
 }
 
 function set(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#set response:')
   client.set({
@@ -74,7 +74,7 @@ function set(err, xml) {
 }
 
 function clone(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#clone response:')
   client.clone({
@@ -85,7 +85,7 @@ function clone(err, xml) {
 }
 
 function rename(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\#rename response:')
   client.rename({
@@ -95,7 +95,7 @@ function rename(err, xml) {
 }
 
 function get(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#get response:')
   client.get({
@@ -105,7 +105,7 @@ function get(err, xml) {
 }
 
 function edit(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#edit response:')
   client.edit({
@@ -115,7 +115,7 @@ function edit(err, xml) {
 }
 
 function move(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#move response:')
   client.move({
@@ -126,7 +126,7 @@ function move(err, xml) {
 }
 
 function del(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#del response:')
   client.del({
@@ -139,7 +139,7 @@ function del(err, xml) {
 }
 
 function commit(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#commit response:')
   client.commit({
@@ -148,7 +148,7 @@ function commit(err, xml) {
 }
 
 function show(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\n#show response:')
   client.show({
@@ -157,7 +157,7 @@ function show(err, xml) {
 }
 
 function done(err, xml) {
-  assert.ifError(err)
+  if (err) console.error(err)
   console.log(xml)
   console.log('\nDone')
 }

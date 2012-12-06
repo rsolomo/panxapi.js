@@ -15,6 +15,10 @@ describe('panxapi', function() {
       var client2 = panxapi.createClient()
       assert.notEqual(client1, client2)
     })
+    it('should set apiUrl if API version is specified', function() {
+      var client = panxapi.createClient({ apiVersion : 1 })
+      assert.equal(client.apiUrl, '/esp/restapi.esp?')
+    })
   })
   describe('#keygen()', function() {
     var requestSuccess = function(url, callback) {

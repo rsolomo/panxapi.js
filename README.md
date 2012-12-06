@@ -4,7 +4,7 @@ panxapi.js is a simple [Node.js](http://nodejs.org/) client for Palo Alto Networ
 
 ## Dependencies
 
- - PANOS 4.1 or greater
+ - PAN-OS 4.0 or greater
  - Node.js
 
 ## Installation
@@ -13,7 +13,7 @@ panxapi.js is a simple [Node.js](http://nodejs.org/) client for Palo Alto Networ
 
 ## Getting started
 
-We'll create a new client. You can optionally specify a hostname and key here.
+Let's create a new client. You can optionally specify a hostname and key here.
 
     var panxapi = require('panxapi')
     
