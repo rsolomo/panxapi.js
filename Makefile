@@ -10,6 +10,6 @@ test-unit:
 		$(MOCHA) --reporter $(REPORTER)
 
 test-acceptance:
-		$(NODE) ./test/acceptance/test.js
+		$(NODE) ./test/acceptance/test.firewall.js
 
 .PHONY: test test-unit test-integration test-all
