@@ -58,6 +58,7 @@ The parts of the Palo Alto API supported currently are:
 - rename
 - clone
 - move
+- report
 
 ## Development
 Run the following command, within the repository, to install dev dependencies.

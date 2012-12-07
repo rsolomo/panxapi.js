@@ -5,7 +5,6 @@
  * lab/development firewall for testing is highly recommended.
  */
 
-var assert = require('assert')
 var program = require('commander')
 var panxapi = require('../../lib/panxapi')
 var panxapiTest = "/config/devices/entry/vsys/entry/address/entry[@name='panxapi.js_test']"
@@ -153,6 +152,16 @@ function show(err, xml) {
   console.log('\n#show response:')
   client.show({
     xpath : '/config/devices/entry/deviceconfig/system/hostname'
+  }, report)
+}
+
+function report(err, xml) {
+  if (err) console.error(err)
+  console.log(xml)
+  console.log('\n#report response:')
+  client.report({
+    reporttype : 'dynamic',
+    reportname : 'acc-summary'
   }, done)
 }
 

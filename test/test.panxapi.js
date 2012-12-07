@@ -465,4 +465,21 @@ describe('panxapi', function() {
       assert.ok(client.createUrl.called)
     })
   })
+  describe('#report()', function() {
+    beforeEach(function() {
+      sinon.stub(client, 'createUrl')
+    })
+    it('should throw an exception if reporttype is not present', function() {
+      assert.throws(function() {
+        client.report({
+        }, function() {})
+      }, /reporttype/)
+    })
+    it('should call createUrl', function() {
+      client.report({
+        reporttype : 'predefined'
+      }, function() {})
+      assert.ok(client.createUrl.called)
+    })
+  })
 })
