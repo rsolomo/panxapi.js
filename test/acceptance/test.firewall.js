@@ -146,12 +146,13 @@ function commit(err, xml) {
   }, show)
 }
 
+// Using relative xpath for #show to allow 4.0 support
 function show(err, xml) {
   if (err) console.error(err)
   console.log(xml)
   console.log('\n#show response:')
   client.show({
-    xpath : '/config/devices/entry/deviceconfig/system/hostname'
+    xpath : 'devices/entry/deviceconfig/system/hostname'
   }, report)
 }
 
