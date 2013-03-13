@@ -13,8 +13,6 @@ function PanClient(opts) {
   this.key = opts.key
   this.api = opts.api || 'esp/restapi.esp'
   this.host = opts.host
-  this.user = opts.user
-  this.password = opts.password
 
   if (opts.port) {
     this.port = opts.port
@@ -25,14 +23,14 @@ function PanClient(opts) {
   }
 }
 
-PanClient.prototype.keygen = function keygen(callback) {
+PanClient.prototype.keygen = function keygen(user, password, callback) {
   var self = this
   var url = this.protocol + '://' + this.host
     + ':' + this.port + '/' + this.api
 
   superagent
   .post(url)
-  .query({ type : 'keygen', user : this.user, password : this.password })
+  .query({ type : 'keygen', user : user, password : password })
   .buffer(true)
   .on('error', callback)
   .end(done)

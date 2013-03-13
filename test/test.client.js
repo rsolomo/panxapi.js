@@ -27,8 +27,10 @@ describe('createPanClient', function() {
 })
 
 describe('keygen', function() {
-  var app, server, client
+  var app, server, client, user, password
   beforeEach(function(done) {
+    user = 'admin'
+    password = 'admin'
     app = express()
     server = http.createServer(app)
     server.listen(function(err) {
@@ -55,7 +57,7 @@ describe('keygen', function() {
       res.end(xml)
     })
 
-    client.keygen(function(err, xml, etree) {
+    client.keygen(user, password, function(err, xml, etree) {
       assert.ifError(err)
       assert.equal(client.key, 'as$&a)#asdaui3')
       return done()
@@ -70,7 +72,7 @@ describe('keygen', function() {
       res.end(xml1)
     })
 
-    client.keygen(function(err, xml, etree) {
+    client.keygen(user, password, function(err, xml, etree) {
       assert.ifError(err)
       assert.equal(xml1, xml)
       assert.equal(typeof etree.find, 'function')
@@ -83,7 +85,7 @@ describe('keygen', function() {
       res.end('asdf')
     })
 
-    client.keygen(function(err, xml, etree) {
+    client.keygen(user, password, function(err, xml, etree) {
       assert.ok(err instanceof Error)
       return done()
     })
@@ -97,7 +99,7 @@ describe('keygen', function() {
       res.end(xml)
     })
 
-    client.keygen(function(err, xml, etree) {
+    client.keygen(user, password, function(err, xml, etree) {
       assert.ok(err instanceof Error)
       return done()
     })
