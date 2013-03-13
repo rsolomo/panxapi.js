@@ -2,12 +2,17 @@ var et = require('elementtree')
 var superagent = require('superagent')
 
 exports.createPanClient = createPanClient
+exports.PanClient = PanClient
 
 function createPanClient(opts) {
   return new PanClient(opts)
 }
 
 function PanClient(opts) {
+  if (! this instanceof PanClient) {
+    return new PanClient(opts)
+  }
+
   opts = opts || {}
   this.protocol = opts.protocol || 'https'
   this.key = opts.key
