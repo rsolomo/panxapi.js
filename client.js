@@ -53,6 +53,33 @@ PanClient.prototype.keygen = function keygen(callback) {
   }
 }
 
+PanClient.prototype.request = function request(params, callback) {
+  var self = this
+  var url = this.protocol + '://' + this.host
+    + ':' + this.port + '/' + this.api
+
+  params.key = this.key
+  superagent
+  .post(url)
+  .query(params)
+  .buffer(true)
+  .on('error', callback)
+  .end(done)
+
+  function done(res) {
+    try {
+      var etree = et.parse(res.text)
+    } catch(err) {
+      return callback(err, res.text, null)
+    }
+
+    if (ok(res, etree)) {
+      return callback(null, res.text, etree)
+    }
+    return callback(new Error(res.text), res.text, null)
+  }
+}
+
 function ok(res, etree) {
   if (!res.ok) return false
   if (!etree) return false
