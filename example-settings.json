@@ -1,0 +1,7 @@
+{
+	"protocol" : "https",
+	"api" : "esp/restapi.esp",
+	"host" : "",
+	"user" : "",
+	"password" : ""
+}
