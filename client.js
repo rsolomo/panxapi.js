@@ -44,11 +44,18 @@ PanClient.prototype.keygen = function keygen(callback) {
       return callback(err, res.text, null)
     }
 
-    if (res.ok && etree) {
+    if (ok(res, etree)) {
       var key = etree.findtext('./result/key')
       self.key = decodeURIComponent(key)
       return callback(null, res.text, etree)
     }
     return callback(new Error(res.text), res.text, null)
   }
+}
+
+function ok(res, etree) {
+  if (!res.ok) return false
+  if (!etree) return false
+  if (etree.find('.').attrib.status !== 'success') return false
+  return true
 }

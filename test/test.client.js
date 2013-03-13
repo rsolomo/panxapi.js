@@ -78,9 +78,23 @@ describe('keygen', function() {
     })
   })
 
-  it('if xml cannot be parsed, an Error should be returned', function(done) {
+  it('should return an Error, if xml cannot be parsed', function(done) {
     app.post('/esp/restapi.esp', function(req, res) {
       res.end('asdf')
+    })
+
+    client.keygen(function(err, xml, etree) {
+      assert.ok(err instanceof Error)
+      return done()
+    })
+  })
+
+  it('should return an Error, if status is not "success"', function(done) {
+    var xml = '<response status="error"><result><msg>'
+      + 'Authentication failed: Invalid username or password '
+      + '</msg></result></response>'
+    app.post('/esp/restapi.esp', function(req, res) {
+      res.end(xml)
     })
 
     client.keygen(function(err, xml, etree) {
