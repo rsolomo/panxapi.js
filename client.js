@@ -24,3 +24,31 @@ function PanClient(opts) {
     this.port = 443
   }
 }
+
+PanClient.prototype.keygen = function keygen(callback) {
+  var self = this
+  var url = this.protocol + '://' + this.host
+    + ':' + this.port + '/' + this.api
+
+  superagent
+  .post(url)
+  .query({ type : 'keygen', user : this.user, password : this.password })
+  .buffer(true)
+  .on('error', callback)
+  .end(done)
+
+  function done(res) {
+    try {
+      var etree = et.parse(res.text)
+    } catch(err) {
+      return callback(err, res.text, null)
+    }
+
+    if (res.ok && etree) {
+      var key = etree.findtext('./result/key')
+      self.key = decodeURIComponent(key)
+      return callback(null, res.text, etree)
+    }
+    return callback(new Error(res.text), res.text, null)
+  }
+}
