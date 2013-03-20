@@ -20,21 +20,18 @@ function PanClient(opts) {
   this.host = opts.host
 
   if (opts.port) {
-    this.port = opts.port
-  } else if (this.protocol === 'http') {
-    this.port = 80
+    this.url = this.protocol + '://' + this.host
+      + ':' + opts.port + '/' + this.api
   } else {
-    this.port = 443
+    this.url = this.protocol + '://' + this.host + '/' + this.api
   }
 }
 
 PanClient.prototype.keygen = function keygen(user, password, callback) {
   var self = this
-  var url = this.protocol + '://' + this.host
-    + ':' + this.port + '/' + this.api
 
   superagent
-  .post(url)
+  .post(this.url)
   .query({ type : 'keygen', user : user, password : password })
   .buffer(true)
   .on('error', callback)
@@ -57,13 +54,9 @@ PanClient.prototype.keygen = function keygen(user, password, callback) {
 }
 
 PanClient.prototype.request = function request(params, callback) {
-  var self = this
-  var url = this.protocol + '://' + this.host
-    + ':' + this.port + '/' + this.api
-
   params.key = this.key
   superagent
-  .post(url)
+  .post(this.url)
   .query(params)
   .buffer(true)
   .on('error', callback)
