@@ -32,7 +32,8 @@ PanClient.prototype.keygen = function keygen(user, password, callback) {
 
   superagent
   .post(this.url)
-  .query({ type : 'keygen', user : user, password : password })
+  .type('form')
+  .send({ type : 'keygen', user : user, password : password })
   .buffer(true)
   .on('error', callback)
   .end(done)
@@ -57,7 +58,8 @@ PanClient.prototype.request = function request(params, callback) {
   params.key = this.key
   superagent
   .post(this.url)
-  .query(params)
+  .type('form')
+  .send(params)
   .buffer(true)
   .on('error', callback)
   .end(done)
